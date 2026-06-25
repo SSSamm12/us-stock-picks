@@ -14,6 +14,7 @@
     --up: #ff5c5c;
     --down: #4d8eff;
     --accent: #ffb84d;
+    --green: #3ddc84;
   }
   * { box-sizing: border-box; }
   body {
@@ -56,6 +57,50 @@
   }
   .dot.open { background: #3ddc84; }
   .dot.closed { background: #ff5c5c; }
+
+  /* ---- 일일 브리핑 ---- */
+  .briefing {
+    margin: 14px 16px 0;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .briefing-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .briefing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .briefing-item {
+    font-size: 12px;
+  }
+  .briefing-item .label {
+    color: var(--text-dim);
+    margin-bottom: 2px;
+  }
+  .briefing-item .value {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .briefing-item .value.up { color: var(--up); }
+  .briefing-item .value.down { color: var(--down); }
+  .briefing-note {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--card-border);
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--text);
+  }
 
   nav {
     display: flex;
@@ -106,6 +151,16 @@
     font-size: 16px;
     font-weight: 700;
   }
+  .stock-left .ticker .etf-badge {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--bg);
+    background: var(--accent);
+    padding: 1px 6px;
+    border-radius: 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
   .stock-left .name {
     font-size: 12px;
     color: var(--text-dim);
@@ -131,6 +186,33 @@
     padding-top: 10px;
     border-top: 1px solid var(--card-border);
   }
+
+  /* ---- 진입가/목표가/손절가 ---- */
+  .trade-levels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .level-box {
+    text-align: center;
+    padding: 8px 4px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+  }
+  .level-box .level-label {
+    font-size: 10px;
+    color: var(--text-dim);
+    margin-bottom: 3px;
+  }
+  .level-box .level-value {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .level-box.entry .level-value { color: var(--text); }
+  .level-box.target .level-value { color: var(--up); }
+  .level-box.stop .level-value { color: var(--down); }
+
   .tag-row {
     display: flex;
     gap: 6px;
@@ -203,6 +285,15 @@
     border-radius: 8px;
     font-weight: 600;
   }
+
+  footer {
+    padding: 18px 16px 4px;
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    border-top: 1px solid var(--card-border);
+    margin-top: 20px;
+  }
 </style>
 </head>
 <body>
@@ -215,6 +306,14 @@
     <span id="marketText">장 상태 확인 중...</span>
   </div>
 </header>
+
+<div class="briefing" id="briefingBlock">
+  <div class="briefing-title">📋 오늘의 1분 브리핑</div>
+  <div class="briefing-grid" id="briefingGrid">
+    <div class="loading">불러오는 중...</div>
+  </div>
+  <div class="briefing-note" id="briefingNote"></div>
+</div>
 
 <nav id="tabNav">
   <button data-tab="daytrade" class="active">단타 추천</button>
@@ -245,6 +344,10 @@
   </section>
 </main>
 
+<footer>
+  ※ 진입가/목표가/손절가는 최근 가격대를 참고한 기술적 구간이며, 확정된 매매 추천이 아닙니다. 투자 결정과 책임은 본인에게 있습니다.
+</footer>
+
 <script>
 const PROXY_BASE = "https://us-stock-proxy.chltoal2.workers.dev";
 const DATA_URL = "./data.json"; // 매일 업데이트되는 추천 데이터 파일
@@ -262,16 +365,15 @@ document.querySelectorAll("#tabNav button").forEach(btn => {
 // ---------- 미국 동부시간 장 상태 표시 ----------
 function updateMarketStatus() {
   const now = new Date();
-  // 미국 동부시간(America/New_York) 기준으로 변환
   const nyTimeStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
   const ny = new Date(nyTimeStr);
-  const day = ny.getDay(); // 0=일 6=토
+  const day = ny.getDay();
   const hour = ny.getHours();
   const min = ny.getMinutes();
   const totalMin = hour * 60 + min;
 
-  const openMin = 9 * 60 + 30;   // 09:30 ET
-  const closeMin = 16 * 60;       // 16:00 ET
+  const openMin = 9 * 60 + 30;
+  const closeMin = 16 * 60;
 
   const dot = document.getElementById("marketDot");
   const text = document.getElementById("marketText");
@@ -303,6 +405,32 @@ async function fetchQuote(ticker) {
   }
 }
 
+// ---------- 일일 브리핑 렌더 ----------
+function renderBriefing(briefing) {
+  const grid = document.getElementById("briefingGrid");
+  const note = document.getElementById("briefingNote");
+  if (!briefing) {
+    grid.innerHTML = `<div class="empty">브리핑 데이터가 없습니다.</div>`;
+    return;
+  }
+
+  const items = [
+    { label: "VIX (공포지수)", value: briefing.vix },
+    { label: "선물 방향 (S&P/나스닥)", value: briefing.futures },
+    { label: "오늘 핫섹터", value: briefing.hotSector },
+    { label: "경제지표/이벤트", value: briefing.event }
+  ];
+
+  grid.innerHTML = items.map(i => `
+    <div class="briefing-item">
+      <div class="label">${i.label}</div>
+      <div class="value ${i.cls || ""}">${i.value || "-"}</div>
+    </div>
+  `).join("");
+
+  note.textContent = briefing.note || "";
+}
+
 // ---------- 종목 카드 렌더링 ----------
 function renderStockCard(stock, quote) {
   const price = quote ? quote.c : null;
@@ -312,11 +440,30 @@ function renderStockCard(stock, quote) {
   const priceText = price !== null ? `$${price.toFixed(2)}` : "—";
   const changeText = change !== null ? `${isUp ? "+" : ""}${change.toFixed(2)}%` : "데이터 없음";
 
+  const etfBadge = stock.isEtf ? `<span class="etf-badge">ETF</span>` : "";
+
+  const levels = stock.entry || stock.target || stock.stop ? `
+    <div class="trade-levels">
+      <div class="level-box entry">
+        <div class="level-label">진입가</div>
+        <div class="level-value">${stock.entry || "-"}</div>
+      </div>
+      <div class="level-box target">
+        <div class="level-label">목표가</div>
+        <div class="level-value">${stock.target || "-"}</div>
+      </div>
+      <div class="level-box stop">
+        <div class="level-label">손절가</div>
+        <div class="level-value">${stock.stop || "-"}</div>
+      </div>
+    </div>
+  ` : "";
+
   return `
     <div class="stock-card">
       <div class="stock-row">
         <div class="stock-left">
-          <div class="ticker">${stock.ticker}</div>
+          <div class="ticker">${stock.ticker}${etfBadge}</div>
           <div class="name">${stock.name || ""}</div>
         </div>
         <div class="stock-right">
@@ -325,6 +472,7 @@ function renderStockCard(stock, quote) {
         </div>
       </div>
       ${stock.reason ? `<div class="reason">${stock.reason}</div>` : ""}
+      ${levels}
       ${stock.tags && stock.tags.length ? `
         <div class="tag-row">
           ${stock.tags.map(t => `<span class="tag">#${t}</span>`).join("")}
@@ -343,7 +491,6 @@ async function renderStockList(containerId, stocks) {
 
   container.innerHTML = stocks.map(s => renderStockCard(s, null)).join("");
 
-  // 가격은 비동기로 하나씩 업데이트 (Finnhub 분당 60회 제한 고려, 약간 간격)
   for (let i = 0; i < stocks.length; i++) {
     const stock = stocks[i];
     const quote = await fetchQuote(stock.ticker);
@@ -352,7 +499,7 @@ async function renderStockList(containerId, stocks) {
       const updated = renderStockCard(stock, quote);
       cards[i].outerHTML = updated;
     }
-    await new Promise(r => setTimeout(r, 150)); // 과도한 동시 호출 방지
+    await new Promise(r => setTimeout(r, 150));
   }
 }
 
@@ -397,7 +544,7 @@ function renderReport(containerId, report) {
 // ---------- 데이터 로드 ----------
 async function loadData() {
   try {
-    const res = await fetch(DATA_URL + "?t=" + Date.now()); // 캐시 방지
+    const res = await fetch(DATA_URL + "?t=" + Date.now());
     const data = await res.json();
 
     document.getElementById("updated-daytrade").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
@@ -405,6 +552,7 @@ async function loadData() {
     document.getElementById("updated-sector").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
     document.getElementById("updated-report").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
 
+    renderBriefing(data.briefing);
     renderStockList("list-daytrade", data.daytrade);
     renderStockList("list-longterm", data.longterm);
     renderSectorList("list-sector", data.sectors);
