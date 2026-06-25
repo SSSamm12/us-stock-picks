@@ -32,267 +32,157 @@
     z-index: 10;
     border-bottom: 1px solid var(--card-border);
   }
-  header h1 {
-    font-size: 18px;
-    margin: 0 0 2px;
-  }
-  header .meta {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
+  header h1 { font-size: 18px; margin: 0 0 2px; }
+  header .meta { font-size: 12px; color: var(--text-dim); }
   .market-status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    margin-top: 8px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    background: var(--card);
-    border: 1px solid var(--card-border);
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; margin-top: 8px; padding: 4px 10px;
+    border-radius: 20px; background: var(--card); border: 1px solid var(--card-border);
   }
-  .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--text-dim);
-  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dim); }
   .dot.open { background: #3ddc84; }
   .dot.closed { background: #ff5c5c; }
 
-  /* ---- 일일 브리핑 ---- */
   .briefing {
-    margin: 14px 16px 0;
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 14px 16px;
+    margin: 14px 16px 0; background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 14px 16px;
   }
   .briefing-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    font-size: 13px; font-weight: 700; color: var(--accent);
+    margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
   }
-  .briefing-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .briefing-item {
-    font-size: 12px;
-  }
-  .briefing-item .label {
-    color: var(--text-dim);
-    margin-bottom: 2px;
-  }
-  .briefing-item .value {
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .briefing-item .value.up { color: var(--up); }
-  .briefing-item .value.down { color: var(--down); }
+  .briefing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .briefing-item { font-size: 12px; }
+  .briefing-item .label { color: var(--text-dim); margin-bottom: 2px; }
+  .briefing-item .value { font-size: 14px; font-weight: 700; }
   .briefing-note {
-    margin-top: 10px;
-    padding-top: 10px;
-    border-top: 1px solid var(--card-border);
-    font-size: 12px;
-    line-height: 1.6;
-    color: var(--text);
+    margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--card-border);
+    font-size: 12px; line-height: 1.6; color: var(--text);
   }
 
   nav {
-    display: flex;
-    gap: 4px;
-    padding: 12px 16px 0;
-    overflow-x: auto;
+    display: flex; gap: 4px; padding: 12px 16px 0; overflow-x: auto;
   }
   nav button {
-    flex: 1;
-    background: transparent;
-    color: var(--text-dim);
-    border: none;
-    padding: 10px 8px;
-    font-size: 13px;
-    font-weight: 600;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    white-space: nowrap;
+    flex: 1; background: transparent; color: var(--text-dim); border: none;
+    padding: 10px 8px; font-size: 13px; font-weight: 600;
+    border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
   }
-  nav button.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
+  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* 카테고리 필터 */
+  .filter-row {
+    display: flex; gap: 6px; padding: 12px 16px 0; overflow-x: auto;
   }
+  .filter-chip {
+    flex-shrink: 0; font-size: 12px; padding: 6px 12px; border-radius: 20px;
+    background: var(--card); border: 1px solid var(--card-border); color: var(--text-dim);
+    cursor: pointer; white-space: nowrap;
+  }
+  .filter-chip.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
 
   main { padding: 16px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  .updated-badge {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-bottom: 12px;
-  }
+  .updated-badge { font-size: 11px; color: var(--text-dim); margin: 10px 0 12px; }
 
   .stock-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 10px;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 14px; margin-bottom: 10px;
   }
-  .stock-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-  }
-  .stock-left .ticker {
-    font-size: 16px;
-    font-weight: 700;
-  }
+  .stock-row { display: flex; justify-content: space-between; align-items: baseline; }
+  .stock-left .ticker { font-size: 16px; font-weight: 700; }
   .stock-left .ticker .etf-badge {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--bg);
-    background: var(--accent);
-    padding: 1px 6px;
-    border-radius: 6px;
-    margin-left: 6px;
-    vertical-align: middle;
+    font-size: 10px; font-weight: 700; color: var(--bg); background: var(--accent);
+    padding: 1px 6px; border-radius: 6px; margin-left: 6px; vertical-align: middle;
   }
-  .stock-left .name {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-top: 2px;
+  .stock-left .ticker .score-badge {
+    font-size: 10px; font-weight: 700; color: var(--green);
+    margin-left: 6px; vertical-align: middle;
   }
+  .stock-left .name { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
   .stock-right { text-align: right; }
-  .stock-right .price {
-    font-size: 16px;
-    font-weight: 700;
-  }
-  .stock-right .change {
-    font-size: 12px;
-    margin-top: 2px;
-  }
+  .stock-right .price { font-size: 16px; font-weight: 700; }
+  .stock-right .change { font-size: 12px; margin-top: 2px; }
   .change.up { color: var(--up); }
   .change.down { color: var(--down); }
 
   .reason {
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--text);
-    line-height: 1.5;
-    padding-top: 10px;
-    border-top: 1px solid var(--card-border);
+    margin-top: 10px; font-size: 13px; color: var(--text);
+    line-height: 1.5; padding-top: 10px; border-top: 1px solid var(--card-border);
   }
 
-  /* ---- 진입가/목표가/손절가 ---- */
-  .trade-levels {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-    margin-top: 10px;
-  }
-  .level-box {
-    text-align: center;
-    padding: 8px 4px;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.03);
-  }
-  .level-box .level-label {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-bottom: 3px;
-  }
-  .level-box .level-value {
-    font-size: 13px;
-    font-weight: 700;
-  }
+  .trade-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+  .level-box { text-align: center; padding: 8px 4px; border-radius: 10px; background: rgba(255,255,255,0.03); }
+  .level-box .level-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
+  .level-box .level-value { font-size: 12px; font-weight: 700; }
   .level-box.entry .level-value { color: var(--text); }
   .level-box.target .level-value { color: var(--up); }
   .level-box.stop .level-value { color: var(--down); }
 
-  .tag-row {
-    display: flex;
-    gap: 6px;
-    margin-top: 8px;
-    flex-wrap: wrap;
-  }
-  .tag {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    background: rgba(255,184,77,0.12);
-    color: var(--accent);
-  }
+  /* 장투 메타 */
+  .longterm-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
+  .meta-box { text-align: center; padding: 8px 4px; border-radius: 10px; background: rgba(255,255,255,0.03); }
+  .meta-box .meta-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
+  .meta-box .meta-value { font-size: 12px; font-weight: 700; }
+  .meta-box .meta-value.green { color: var(--green); }
 
-  .loading, .empty {
-    text-align: center;
-    color: var(--text-dim);
-    padding: 40px 0;
-    font-size: 13px;
+  .point-box {
+    margin-top: 8px; font-size: 12px; color: var(--text-dim);
+    background: rgba(255,184,77,0.06); padding: 8px 10px; border-radius: 8px; line-height: 1.5;
   }
+  .point-box b { color: var(--accent); }
+
+  .tag-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .tag { font-size: 11px; padding: 3px 8px; border-radius: 20px; background: rgba(255,184,77,0.12); color: var(--accent); }
+
+  .loading, .empty { text-align: center; color: var(--text-dim); padding: 40px 0; font-size: 13px; }
 
   .report-block {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 16px;
-    margin-bottom: 12px;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 16px; margin-bottom: 12px;
   }
   .report-block h3 {
-    margin: 0 0 8px;
-    font-size: 14px;
-    color: var(--accent);
+    margin: 0 0 10px; font-size: 14px; color: var(--accent);
+    display: flex; align-items: center; gap: 6px;
   }
-  .report-block p {
-    margin: 0;
-    font-size: 13px;
-    line-height: 1.6;
-    color: var(--text);
-    white-space: pre-wrap;
+  .report-block p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
+  .report-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .report-grid .ritem { font-size: 12px; }
+  .report-grid .ritem .rlabel { color: var(--text-dim); margin-bottom: 2px; }
+  .report-grid .ritem .rvalue { font-size: 13px; font-weight: 700; }
+  .comment-row { padding: 8px 0; border-bottom: 1px solid var(--card-border); font-size: 13px; line-height: 1.5; }
+  .comment-row:last-child { border-bottom: none; }
+  .comment-row b { color: var(--accent); margin-right: 6px; }
+  .risk-list { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.8; color: var(--text); }
+  .ai-opinion {
+    background: linear-gradient(135deg, rgba(255,184,77,0.1), rgba(77,142,255,0.06));
+    border: 1px solid var(--card-border);
   }
 
   .sector-card {
-    background: var(--card);
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    padding: 14px;
-    margin-bottom: 10px;
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 14px; padding: 14px; margin-bottom: 10px;
   }
-  .sector-card .sector-name {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 6px;
+  .sector-card .sector-head {
+    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;
   }
-  .sector-card .sector-desc {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.5;
-    margin-bottom: 8px;
-  }
-  .sector-tickers {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
+  .sector-card .sector-name { font-size: 15px; font-weight: 700; }
+  .sector-badges { display: flex; gap: 6px; }
+  .sector-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; }
+  .sector-badge.momentum { background: rgba(61,220,132,0.12); color: var(--green); }
+  .sector-badge.risk { background: rgba(255,92,92,0.12); color: var(--up); }
+  .sector-card .sector-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 8px; }
+  .sector-tickers { display: flex; gap: 6px; flex-wrap: wrap; }
   .sector-tickers span {
-    font-size: 12px;
-    background: rgba(77,142,255,0.12);
-    color: var(--down);
-    padding: 3px 8px;
-    border-radius: 8px;
-    font-weight: 600;
+    font-size: 12px; background: rgba(77,142,255,0.12); color: var(--down);
+    padding: 3px 8px; border-radius: 8px; font-weight: 600;
   }
 
   footer {
-    padding: 18px 16px 4px;
-    font-size: 11px;
-    color: var(--text-dim);
-    line-height: 1.6;
-    border-top: 1px solid var(--card-border);
-    margin-top: 20px;
+    padding: 18px 16px 4px; font-size: 11px; color: var(--text-dim);
+    line-height: 1.6; border-top: 1px solid var(--card-border); margin-top: 20px;
   }
 </style>
 </head>
@@ -309,9 +199,7 @@
 
 <div class="briefing" id="briefingBlock">
   <div class="briefing-title">📋 오늘의 1분 브리핑</div>
-  <div class="briefing-grid" id="briefingGrid">
-    <div class="loading">불러오는 중...</div>
-  </div>
+  <div class="briefing-grid" id="briefingGrid"><div class="loading">불러오는 중...</div></div>
   <div class="briefing-note" id="briefingNote"></div>
 </div>
 
@@ -321,6 +209,8 @@
   <button data-tab="sector">섹터 분석</button>
   <button data-tab="report">시황 리포트</button>
 </nav>
+
+<div class="filter-row" id="filterRowDaytrade"></div>
 
 <main>
   <section class="tab-panel active" id="tab-daytrade">
@@ -345,14 +235,15 @@
 </main>
 
 <footer>
-  ※ 진입가/목표가/손절가는 최근 가격대를 참고한 기술적 구간이며, 확정된 매매 추천이 아닙니다. 투자 결정과 책임은 본인에게 있습니다.
+  ※ 진입가/목표가/손절가, 추천점수, 예상수익률은 최근 가격대와 공개된 정보를 참고한 기술적 구간이며, 확정된 매매 추천이 아닙니다. 투자 결정과 책임은 본인에게 있습니다.
 </footer>
 
 <script>
 const PROXY_BASE = "https://us-stock-proxy.chltoal2.workers.dev";
-const DATA_URL = "./data.json"; // 매일 업데이트되는 추천 데이터 파일
+const DATA_URL = "./data.json";
+let currentDaytradeFilter = "전체";
+let cachedData = null;
 
-// ---------- 탭 전환 ----------
 document.querySelectorAll("#tabNav button").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll("#tabNav button").forEach(b => b.classList.remove("active"));
@@ -362,27 +253,18 @@ document.querySelectorAll("#tabNav button").forEach(btn => {
   });
 });
 
-// ---------- 미국 동부시간 장 상태 표시 ----------
 function updateMarketStatus() {
   const now = new Date();
   const nyTimeStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
   const ny = new Date(nyTimeStr);
   const day = ny.getDay();
-  const hour = ny.getHours();
-  const min = ny.getMinutes();
-  const totalMin = hour * 60 + min;
-
+  const totalMin = ny.getHours() * 60 + ny.getMinutes();
   const openMin = 9 * 60 + 30;
   const closeMin = 16 * 60;
-
   const dot = document.getElementById("marketDot");
   const text = document.getElementById("marketText");
-
-  const isWeekday = day >= 1 && day <= 5;
-  const isOpen = isWeekday && totalMin >= openMin && totalMin < closeMin;
-
+  const isOpen = day >= 1 && day <= 5 && totalMin >= openMin && totalMin < closeMin;
   const nyTimeLabel = ny.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
-
   if (isOpen) {
     dot.className = "dot open";
     text.textContent = `장 운영 중 (미동부 ${nyTimeLabel})`;
@@ -394,7 +276,6 @@ function updateMarketStatus() {
 updateMarketStatus();
 setInterval(updateMarketStatus, 60 * 1000);
 
-// ---------- 실시간 가격 가져오기 (Finnhub 프록시) ----------
 async function fetchQuote(ticker) {
   try {
     const res = await fetch(`${PROXY_BASE}/quote?symbol=${ticker}`);
@@ -405,65 +286,56 @@ async function fetchQuote(ticker) {
   }
 }
 
-// ---------- 일일 브리핑 렌더 ----------
-function renderBriefing(briefing) {
+function renderBriefing(b) {
   const grid = document.getElementById("briefingGrid");
   const note = document.getElementById("briefingNote");
-  if (!briefing) {
-    grid.innerHTML = `<div class="empty">브리핑 데이터가 없습니다.</div>`;
-    return;
-  }
-
+  if (!b) { grid.innerHTML = `<div class="empty">브리핑 데이터가 없습니다.</div>`; return; }
   const items = [
-    { label: "VIX (공포지수)", value: briefing.vix },
-    { label: "선물 방향 (S&P/나스닥)", value: briefing.futures },
-    { label: "오늘 핫섹터", value: briefing.hotSector },
-    { label: "경제지표/이벤트", value: briefing.event }
+    { label: "VIX (공포지수)", value: b.vix },
+    { label: "선물 방향", value: b.futures },
+    { label: "오늘 핫섹터", value: b.hotSector },
+    { label: "경제지표/이벤트", value: b.event }
   ];
-
   grid.innerHTML = items.map(i => `
-    <div class="briefing-item">
-      <div class="label">${i.label}</div>
-      <div class="value ${i.cls || ""}">${i.value || "-"}</div>
-    </div>
+    <div class="briefing-item"><div class="label">${i.label}</div><div class="value">${i.value || "-"}</div></div>
   `).join("");
-
-  note.textContent = briefing.note || "";
+  note.textContent = b.note || "";
 }
 
-// ---------- 종목 카드 렌더링 ----------
-function renderStockCard(stock, quote) {
+function renderStockCard(stock, quote, isLongterm) {
   const price = quote ? quote.c : null;
   const change = quote ? quote.dp : null;
   const isUp = change !== null && change >= 0;
-
   const priceText = price !== null ? `$${price.toFixed(2)}` : "—";
   const changeText = change !== null ? `${isUp ? "+" : ""}${change.toFixed(2)}%` : "데이터 없음";
-
   const etfBadge = stock.isEtf ? `<span class="etf-badge">ETF</span>` : "";
+  const scoreBadge = stock.score ? `<span class="score-badge">★${stock.score}점</span>` : "";
 
-  const levels = stock.entry || stock.target || stock.stop ? `
-    <div class="trade-levels">
-      <div class="level-box entry">
-        <div class="level-label">진입가</div>
-        <div class="level-value">${stock.entry || "-"}</div>
+  let levelsBlock = "";
+  if (isLongterm) {
+    levelsBlock = `
+      <div class="longterm-meta">
+        <div class="meta-box"><div class="meta-label">투자기간</div><div class="meta-value">${stock.horizon || "-"}</div></div>
+        <div class="meta-box"><div class="meta-label">예상수익</div><div class="meta-value green">${stock.expectedReturn || "-"}</div></div>
+        <div class="meta-box"><div class="meta-label">추천점수</div><div class="meta-value">${stock.score || "-"}점</div></div>
       </div>
-      <div class="level-box target">
-        <div class="level-label">목표가</div>
-        <div class="level-value">${stock.target || "-"}</div>
+      ${stock.point ? `<div class="point-box"><b>장투 포인트</b> ${stock.point}</div>` : ""}
+    `;
+  } else if (stock.entry || stock.target || stock.stop) {
+    levelsBlock = `
+      <div class="trade-levels">
+        <div class="level-box entry"><div class="level-label">진입가</div><div class="level-value">${stock.entry || "-"}</div></div>
+        <div class="level-box target"><div class="level-label">목표가</div><div class="level-value">${stock.target || "-"}</div></div>
+        <div class="level-box stop"><div class="level-label">손절가</div><div class="level-value">${stock.stop || "-"}</div></div>
       </div>
-      <div class="level-box stop">
-        <div class="level-label">손절가</div>
-        <div class="level-value">${stock.stop || "-"}</div>
-      </div>
-    </div>
-  ` : "";
+    `;
+  }
 
   return `
-    <div class="stock-card">
+    <div class="stock-card" data-category="${stock.category || ""}">
       <div class="stock-row">
         <div class="stock-left">
-          <div class="ticker">${stock.ticker}${etfBadge}</div>
+          <div class="ticker">${stock.ticker}${etfBadge}${!isLongterm ? scoreBadge : ""}</div>
           <div class="name">${stock.name || ""}</div>
         </div>
         <div class="stock-right">
@@ -472,38 +344,47 @@ function renderStockCard(stock, quote) {
         </div>
       </div>
       ${stock.reason ? `<div class="reason">${stock.reason}</div>` : ""}
-      ${levels}
-      ${stock.tags && stock.tags.length ? `
-        <div class="tag-row">
-          ${stock.tags.map(t => `<span class="tag">#${t}</span>`).join("")}
-        </div>` : ""}
+      ${levelsBlock}
+      ${stock.tags && stock.tags.length ? `<div class="tag-row">${stock.tags.map(t => `<span class="tag">#${t}</span>`).join("")}</div>` : ""}
     </div>
   `;
 }
 
-// ---------- 종목 리스트(단타/장투) 렌더 ----------
-async function renderStockList(containerId, stocks) {
+async function renderStockList(containerId, stocks, isLongterm) {
   const container = document.getElementById(containerId);
   if (!stocks || stocks.length === 0) {
     container.innerHTML = `<div class="empty">등록된 종목이 없습니다.</div>`;
     return;
   }
-
-  container.innerHTML = stocks.map(s => renderStockCard(s, null)).join("");
-
+  container.innerHTML = stocks.map(s => renderStockCard(s, null, isLongterm)).join("");
   for (let i = 0; i < stocks.length; i++) {
     const stock = stocks[i];
     const quote = await fetchQuote(stock.ticker);
     const cards = container.querySelectorAll(".stock-card");
-    if (cards[i] && quote) {
-      const updated = renderStockCard(stock, quote);
-      cards[i].outerHTML = updated;
-    }
+    if (cards[i] && quote) cards[i].outerHTML = renderStockCard(stock, quote, isLongterm);
     await new Promise(r => setTimeout(r, 150));
   }
 }
 
-// ---------- 섹터 분석 렌더 ----------
+function renderDaytradeFilters(stocks) {
+  const row = document.getElementById("filterRowDaytrade");
+  const categories = ["전체", ...new Set(stocks.map(s => s.category).filter(Boolean))];
+  row.innerHTML = categories.map(c =>
+    `<div class="filter-chip ${c === currentDaytradeFilter ? "active" : ""}" data-cat="${c}">${c}</div>`
+  ).join("");
+  row.querySelectorAll(".filter-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      currentDaytradeFilter = chip.dataset.cat;
+      row.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      const filtered = currentDaytradeFilter === "전체"
+        ? cachedData.daytrade
+        : cachedData.daytrade.filter(s => s.category === currentDaytradeFilter);
+      renderStockList("list-daytrade", filtered, false);
+    });
+  });
+}
+
 function renderSectorList(containerId, sectors) {
   const container = document.getElementById(containerId);
   if (!sectors || sectors.length === 0) {
@@ -512,49 +393,83 @@ function renderSectorList(containerId, sectors) {
   }
   container.innerHTML = sectors.map(s => `
     <div class="sector-card">
-      <div class="sector-name">${s.name}</div>
-      <div class="sector-desc">${s.description}</div>
-      <div class="sector-tickers">
-        ${(s.tickers || []).map(t => `<span>${t}</span>`).join("")}
+      <div class="sector-head">
+        <div class="sector-name">${s.name}</div>
+        <div class="sector-badges">
+          ${s.momentum ? `<span class="sector-badge momentum">${s.momentum}</span>` : ""}
+          ${s.risk ? `<span class="sector-badge risk">리스크 ${s.risk}</span>` : ""}
+        </div>
       </div>
+      <div class="sector-desc">${s.description}</div>
+      <div class="sector-tickers">${(s.tickers || []).map(t => `<span>${t}</span>`).join("")}</div>
     </div>
   `).join("");
 }
 
-// ---------- 시황 리포트 렌더 ----------
-function renderReport(containerId, report) {
+function renderReport(containerId, r) {
   const container = document.getElementById(containerId);
-  if (!report) {
-    container.innerHTML = `<div class="empty">등록된 시황 리포트가 없습니다.</div>`;
-    return;
-  }
+  if (!r) { container.innerHTML = `<div class="empty">등록된 시황 리포트가 없습니다.</div>`; return; }
+
+  const macroGrid = (r.globalMacro || []).map(i => `
+    <div class="ritem"><div class="rlabel">${i.label}</div><div class="rvalue">${i.value}</div></div>
+  `).join("");
+
+  const flowGrid = (r.sectorFlow || []).map(i => `
+    <div class="ritem"><div class="rlabel">${i.label}</div><div class="rvalue">${i.value}</div></div>
+  `).join("");
+
+  const comments = (r.stockComments || []).map(c => `
+    <div class="comment-row"><b>${c.ticker}</b>${c.comment}</div>
+  `).join("");
+
+  const risks = (r.risks || []).map(x => `<li>${x}</li>`).join("");
+
   container.innerHTML = `
     <div class="report-block">
-      <h3>오늘의 시황</h3>
-      <p>${report.summary || ""}</p>
+      <h3>🌐 글로벌 매크로</h3>
+      <div class="report-grid">${macroGrid}</div>
     </div>
-    ${report.highlights ? `
     <div class="report-block">
-      <h3>주요 이슈</h3>
-      <p>${report.highlights}</p>
-    </div>` : ""}
+      <h3>📊 섹터 흐름</h3>
+      <div class="report-grid">${flowGrid}</div>
+    </div>
+    <div class="report-block">
+      <h3>오늘의 시황</h3>
+      <p>${r.summary || ""}</p>
+    </div>
+    <div class="report-block">
+      <h3>🎯 종목별 코멘트</h3>
+      ${comments}
+    </div>
+    <div class="report-block">
+      <h3>⚠️ 리스크 요인</h3>
+      <ul class="risk-list">${risks}</ul>
+    </div>
+    <div class="report-block">
+      <h3>💡 전망</h3>
+      <p>${r.outlook || ""}</p>
+    </div>
+    <div class="report-block ai-opinion">
+      <h3>🤖 AI 종합 의견</h3>
+      <p>${r.aiOpinion || ""}</p>
+    </div>
   `;
 }
 
-// ---------- 데이터 로드 ----------
 async function loadData() {
   try {
     const res = await fetch(DATA_URL + "?t=" + Date.now());
     const data = await res.json();
+    cachedData = data;
 
-    document.getElementById("updated-daytrade").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
-    document.getElementById("updated-longterm").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
-    document.getElementById("updated-sector").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
-    document.getElementById("updated-report").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+    ["daytrade", "longterm", "sector", "report"].forEach(id => {
+      document.getElementById("updated-" + id).textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+    });
 
     renderBriefing(data.briefing);
-    renderStockList("list-daytrade", data.daytrade);
-    renderStockList("list-longterm", data.longterm);
+    renderDaytradeFilters(data.daytrade || []);
+    renderStockList("list-daytrade", data.daytrade, false);
+    renderStockList("list-longterm", data.longterm, true);
     renderSectorList("list-sector", data.sectors);
     renderReport("list-report", data.report);
   } catch (e) {
