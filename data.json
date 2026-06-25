@@ -1,521 +1,238 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>US Stock Picks</title>
-<style>
-  :root {
-    --bg: #0b0e14;
-    --card: #151a23;
-    --card-border: #232a37;
-    --text: #e6e9ef;
-    --text-dim: #8a92a3;
-    --up: #ff5c5c;
-    --down: #4d8eff;
-    --accent: #ffb84d;
-    --green: #3ddc84;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    padding-bottom: 40px;
-  }
-  header {
-    padding: 18px 16px 12px;
-    position: sticky;
-    top: 0;
-    background: var(--bg);
-    z-index: 10;
-    border-bottom: 1px solid var(--card-border);
-  }
-  header h1 { font-size: 18px; margin: 0 0 2px; }
-  header .meta { font-size: 12px; color: var(--text-dim); }
-  .market-status {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; margin-top: 8px; padding: 4px 10px;
-    border-radius: 20px; background: var(--card); border: 1px solid var(--card-border);
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-dim); }
-  .dot.open { background: #3ddc84; }
-  .dot.closed { background: #ff5c5c; }
+{
+  "updatedAt": "2026-06-25 08:00 KST",
 
-  .briefing {
-    margin: 14px 16px 0; background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 14px; padding: 14px 16px;
-  }
-  .briefing-title {
-    font-size: 13px; font-weight: 700; color: var(--accent);
-    margin-bottom: 10px; display: flex; align-items: center; gap: 6px;
-  }
-  .briefing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .briefing-item { font-size: 12px; }
-  .briefing-item .label { color: var(--text-dim); margin-bottom: 2px; }
-  .briefing-item .value { font-size: 14px; font-weight: 700; }
-  .briefing-note {
-    margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--card-border);
-    font-size: 12px; line-height: 1.6; color: var(--text);
-  }
+  "briefing": {
+    "vix": "18선 (전일 -6%대 진정)",
+    "futures": "마이크론 실적 서프라이즈로 선물 강세 (나스닥100 선물 +1.9%)",
+    "hotSector": "반도체 급반등 예고 (마이크론 시간외 +15%)",
+    "event": "5월 PCE 물가지수 발표 예정 · FOMC는 6/17 동결로 종료, 다음 회의 7/28~29",
+    "note": "마이크론이 6/24 장마감 후 실적에서 매출 가이던스를 시장 기대(437억달러)의 1.5배 수준인 500억달러로 제시하며 시간외 15% 급등. 퀄컴도 비휴대폰 매출 가이던스 상향으로 14% 급등. 전일 정규장에서의 반도체 약세(TSM -6.6%, NVDA -4.1%) 분위기가 마이크론 실적을 계기로 급반전될 가능성이 큰 상태."
+  },
 
-  nav {
-    display: flex; gap: 4px; padding: 12px 16px 0; overflow-x: auto;
-  }
-  nav button {
-    flex: 1; background: transparent; color: var(--text-dim); border: none;
-    padding: 10px 8px; font-size: 13px; font-weight: 600;
-    border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
-  }
-  nav button.active { color: var(--accent); border-bottom-color: var(--accent); }
+  "daytrade": [
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "category": "반도체",
+      "score": 88,
+      "tags": ["AI", "반도체", "지지력테스트"],
+      "reason": "내부자 매도(이사 마크 스티븐스, 1,860만달러 상당) 이슈와 반도체 섹터 동반 약세로 전일 4.1% 하락. $200 부근 200일 이동평균 지지력 테스트 구간.",
+      "entry": "$197~200",
+      "target": "$210 (+5~6%)",
+      "stop": "$193 (-3%)"
+    },
+    {
+      "ticker": "AMD",
+      "name": "Advanced Micro Devices",
+      "category": "반도체",
+      "score": 75,
+      "tags": ["반도체", "AI", "목표가상향"],
+      "reason": "UBS가 에이전틱 AI向 CPU 수요를 근거로 목표가를 상향했으나, 반도체 섹터 전반 약세 동조화로 단기 변동성이 큰 상태.",
+      "entry": "$155~160",
+      "target": "$172 (+8%)",
+      "stop": "$148 (-5%)"
+    },
+    {
+      "ticker": "TSM",
+      "name": "Taiwan Semiconductor",
+      "category": "반도체",
+      "score": 70,
+      "tags": ["파운드리", "특허이슈", "단기급락"],
+      "reason": "美 ITC의 첨단공정 특허침해 조사(예비판결 6월 말 예정)와 4~5월 매출성장률(24%)이 시장 기대(35%)에 못 미친 점이 겹쳐 전일 6.6% 급락. 단기 반등/추가하락 양방향 가능성.",
+      "entry": "$215~220",
+      "target": "$235 (+7~9%)",
+      "stop": "$205 (-5%)"
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology",
+      "category": "반도체",
+      "score": 92,
+      "tags": ["메모리", "실적서프라이즈", "갭상승예상"],
+      "reason": "6/24 장마감 후 발표한 FY26 Q3 실적에서 매출 가이던스를 시장 기대(437억달러)를 크게 웃도는 500억달러로 제시하며 시간외 약 15% 급등. HBM 수요 강세가 핵심 근거. 다음날 정규장 갭상승 출발이 예상되는 이벤트 트레이딩 종목.",
+      "entry": "갭상승 시초가 대비 추가 매수는 신중, 눌림목(되돌림) 구간 권장",
+      "target": "전일 종가 대비 +20~25%",
+      "stop": "갭상승 시초가 -5%"
+    },
+    {
+      "ticker": "PLTR",
+      "name": "Palantir",
+      "category": "AI/데이터",
+      "score": 72,
+      "tags": ["AI", "고변동성", "리테일선호"],
+      "reason": "AI/데이터 분석 테마 대표주로 리테일 트레이더 관심이 꾸준히 높아 일중 거래량과 변동성이 큰 종목. 반도체 섹터와 별개로 독립적인 모멘텀을 보이는 경우가 많음.",
+      "entry": "최근 거래가 대비 -2~3% 구간",
+      "target": "진입가 +6~8%",
+      "stop": "진입가 -4%"
+    },
+    {
+      "ticker": "SOXX",
+      "name": "iShares Semiconductor ETF",
+      "category": "ETF",
+      "score": 65,
+      "tags": ["반도체", "ETF", "지수추종"],
+      "reason": "개별 종목 리스크(실적/특허이슈 등) 없이 반도체 섹터 전체의 변동성에 베팅하거나 헤지하고 싶을 때 활용. 최근 섹터 조정 국면에서 지수 단위 단타 수단으로 적합.",
+      "entry": "최근 거래가 대비 -1~2% 구간",
+      "target": "진입가 +4~5%",
+      "stop": "진입가 -3%"
+    }
+  ],
 
-  /* 카테고리 필터 */
-  .filter-row {
-    display: flex; gap: 6px; padding: 12px 16px 0; overflow-x: auto;
-  }
-  .filter-chip {
-    flex-shrink: 0; font-size: 12px; padding: 6px 12px; border-radius: 20px;
-    background: var(--card); border: 1px solid var(--card-border); color: var(--text-dim);
-    cursor: pointer; white-space: nowrap;
-  }
-  .filter-chip.active { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 700; }
+  "longterm": [
+    {
+      "ticker": "AAPL",
+      "name": "Apple",
+      "category": "빅테크",
+      "score": 82,
+      "horizon": "2~3년",
+      "expectedReturn": "+15~25%",
+      "reason": "안정적 현금흐름과 생태계 락인 효과. 인텔과의 미국 내 생산 파트너십 보도로 공급망 다변화 진행 중이라는 점이 장기 리스크 완화 요인.",
+      "point": "분할 매수 권장. 반도체 섹터 조정 시 동반 약세 구간이 매수 기회가 될 수 있음."
+    },
+    {
+      "ticker": "MSFT",
+      "name": "Microsoft",
+      "category": "빅테크/클라우드",
+      "score": 88,
+      "horizon": "2~3년",
+      "expectedReturn": "+20~30%",
+      "reason": "Azure 클라우드와 Copilot AI 양쪽에서 성장 동력 보유. 대형 기술주 중 반도체 섹터 변동성에 상대적으로 덜 민감한 편.",
+      "point": "분할 매수. AI 인프라 투자 지속 여부를 분기 실적에서 지속 확인 필요."
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "category": "반도체/AI",
+      "score": 85,
+      "horizon": "2~4년",
+      "expectedReturn": "+25~40%",
+      "reason": "OpenAI와 공동 개발한 신규 AI칩 '할라피뇨'로 주목. AI 반도체 매출 전년 대비 143% 급증, $30B 규모 AI 수주 잔고 보유. 다만 분기 가이던스가 기대치를 하회하며 단기 변동성 존재.",
+      "point": "장기 AI 인프라 사이클에 대한 베팅. 단기 가이던스 우려로 인한 하락은 분할 매수 기회로 활용 가능."
+    },
+    {
+      "ticker": "GOOGL",
+      "name": "Alphabet",
+      "category": "빅테크/AI",
+      "score": 84,
+      "horizon": "2~3년",
+      "expectedReturn": "+20~30%",
+      "reason": "검색 광고 본업의 안정적 현금창출력에 Gemini AI와 클라우드 사업의 추가 성장이 더해지는 구조.",
+      "point": "분할 매수. 광고 매출 성장률 둔화 여부를 모니터링 포인트로 둘 것."
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon",
+      "category": "이커머스/클라우드",
+      "score": 83,
+      "horizon": "2~3년",
+      "expectedReturn": "+20~30%",
+      "reason": "이커머스 본업과 AWS 클라우드의 안정적 수익 구조. 클라우드 부문이 AI 워크로드 수요로 추가 성장 중.",
+      "point": "분할 매수. AWS 성장률이 핵심 관전 포인트."
+    },
+    {
+      "ticker": "QQQ",
+      "name": "Invesco QQQ Trust (나스닥100 ETF)",
+      "category": "ETF",
+      "score": 80,
+      "horizon": "3년 이상",
+      "expectedReturn": "+15~25%",
+      "reason": "개별 종목 리스크 없이 나스닥100(빅테크+성장주) 전체에 장기 분산 투자. 반도체/빅테크 개별 이슈에 따른 변동성을 완화하는 효과.",
+      "point": "정기 적립식 매수에 적합한 대표 지수 ETF."
+    }
+  ],
 
-  main { padding: 16px; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
+  "sectors": [
+    {
+      "name": "AI / 반도체",
+      "momentum": "급반등 예고",
+      "risk": "중간~높음",
+      "description": "전일 TSM -6.6%, AMD·AVGO 동반 약세로 섹터 전반 조정. 그러나 6/24 장마감 후 마이크론이 어닝서프라이즈(시간외 +15%)를 기록하며 분위기 급반전 조짐. 美 ITC의 TSMC 특허 조사(6월 말 예비판결)는 여전히 변수로 남아있으나, 메모리 수요 강세 확인으로 AI 인프라 투자 사이클에 대한 신뢰도가 다시 높아지는 중.",
+      "tickers": ["NVDA", "AMD", "AVGO", "TSM", "MU", "SOXX"],
+      "stockNotes": [
+        { "ticker": "NVDA", "note": "섹터 반등 시 가장 먼저 반응할 대표주, $200 지지 여부 우선 확인" },
+        { "ticker": "AMD", "note": "마이크론 실적과 무관하게 자체 CPU 수요 모멘텀 보유" },
+        { "ticker": "AVGO", "note": "AI 가속기 매출 비중 높아 메모리 강세 수혜 가능" },
+        { "ticker": "TSM", "note": "ITC 특허 이슈가 별개 변수로 남아있어 반등폭은 상대적으로 제한적일 수 있음" },
+        { "ticker": "MU", "note": "오늘의 핵심 이벤트 종목, 갭상승 출발 예상" },
+        { "ticker": "SOXX", "note": "개별 종목 리스크 회피하며 섹터 반등에 베팅하고 싶을 때 적합" }
+      ]
+    },
+    {
+      "name": "빅테크 / 클라우드",
+      "momentum": "안정적 상승",
+      "risk": "낮음~중간",
+      "description": "AI 인프라 투자와 클라우드 매출 성장이 동시에 진행 중인 대형 기술주 그룹. 반도체 섹터 대비 변동성이 상대적으로 낮고, FOMC가 6/17 금리 동결로 마무리되며 통화정책 불확실성이 단기적으로는 완화된 점도 우호적.",
+      "tickers": ["MSFT", "GOOGL", "AMZN", "AAPL", "QQQ"],
+      "stockNotes": [
+        { "ticker": "MSFT", "note": "Azure 클라우드 성장세 견조, 반도체 변동성에 상대적으로 둔감" },
+        { "ticker": "GOOGL", "note": "광고 본업 안정 + Gemini AI 모멘텀 동시 보유" },
+        { "ticker": "AMZN", "note": "AWS가 AI 워크로드 수요로 추가 성장 중" },
+        { "ticker": "AAPL", "note": "인텔과의 美 국내 생산 파트너십 보도로 공급망 다변화 진행" },
+        { "ticker": "QQQ", "note": "빅테크 전체에 분산 투자하는 대표 지수 ETF" }
+      ]
+    },
+    {
+      "name": "전기차 / 모빌리티",
+      "momentum": "혼조",
+      "risk": "높음",
+      "description": "테슬라가 차세대 AI6 칩을 삼성 텍사스 공장에서 위탁 생산하는 방향으로 파운드리 다변화를 추진 중. 전기차 수요 둔화 우려와 자율주행 기대가 혼재되어 변동성이 높은 섹터.",
+      "tickers": ["TSLA", "RIVN", "LCID"],
+      "stockNotes": [
+        { "ticker": "TSLA", "note": "AI6 칩 삼성 위탁 보도로 공급망 이슈 부각, 일중 변동성 여전히 높음" },
+        { "ticker": "RIVN", "note": "전기차 수요 둔화 우려에 민감, 거시 이슈에 동조화" },
+        { "ticker": "LCID", "note": "자금조달 이슈가 반복적으로 주가에 영향" }
+      ]
+    }
+  ],
 
-  .updated-badge { font-size: 11px; color: var(--text-dim); margin: 10px 0 12px; }
-
-  .stock-card {
-    background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 14px; padding: 14px; margin-bottom: 10px;
-  }
-  .stock-row { display: flex; justify-content: space-between; align-items: baseline; }
-  .stock-left .ticker { font-size: 16px; font-weight: 700; }
-  .stock-left .ticker .etf-badge {
-    font-size: 10px; font-weight: 700; color: var(--bg); background: var(--accent);
-    padding: 1px 6px; border-radius: 6px; margin-left: 6px; vertical-align: middle;
-  }
-  .stock-left .ticker .score-badge {
-    font-size: 10px; font-weight: 700; color: var(--green);
-    margin-left: 6px; vertical-align: middle;
-  }
-  .stock-left .name { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
-  .stock-right { text-align: right; }
-  .stock-right .price { font-size: 16px; font-weight: 700; }
-  .stock-right .change { font-size: 12px; margin-top: 2px; }
-  .change.up { color: var(--up); }
-  .change.down { color: var(--down); }
-
-  .reason {
-    margin-top: 10px; font-size: 13px; color: var(--text);
-    line-height: 1.5; padding-top: 10px; border-top: 1px solid var(--card-border);
-  }
-
-  .trade-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
-  .level-box { text-align: center; padding: 8px 4px; border-radius: 10px; background: rgba(255,255,255,0.03); }
-  .level-box .level-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
-  .level-box .level-value { font-size: 12px; font-weight: 700; }
-  .level-box.entry .level-value { color: var(--text); }
-  .level-box.target .level-value { color: var(--up); }
-  .level-box.stop .level-value { color: var(--down); }
-
-  /* 장투 메타 */
-  .longterm-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
-  .meta-box { text-align: center; padding: 8px 4px; border-radius: 10px; background: rgba(255,255,255,0.03); }
-  .meta-box .meta-label { font-size: 10px; color: var(--text-dim); margin-bottom: 3px; }
-  .meta-box .meta-value { font-size: 12px; font-weight: 700; }
-  .meta-box .meta-value.green { color: var(--green); }
-
-  .point-box {
-    margin-top: 8px; font-size: 12px; color: var(--text-dim);
-    background: rgba(255,184,77,0.06); padding: 8px 10px; border-radius: 8px; line-height: 1.5;
-  }
-  .point-box b { color: var(--accent); }
-
-  .tag-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
-  .tag { font-size: 11px; padding: 3px 8px; border-radius: 20px; background: rgba(255,184,77,0.12); color: var(--accent); }
-
-  .loading, .empty { text-align: center; color: var(--text-dim); padding: 40px 0; font-size: 13px; }
-
-  .report-block {
-    background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 14px; padding: 16px; margin-bottom: 12px;
-  }
-  .report-block h3 {
-    margin: 0 0 10px; font-size: 14px; color: var(--accent);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .report-block p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--text); white-space: pre-wrap; }
-  .report-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .report-grid .ritem { font-size: 12px; }
-  .report-grid .ritem .rlabel { color: var(--text-dim); margin-bottom: 2px; }
-  .report-grid .ritem .rvalue { font-size: 13px; font-weight: 700; }
-  .comment-row { padding: 8px 0; border-bottom: 1px solid var(--card-border); font-size: 13px; line-height: 1.5; }
-  .comment-row:last-child { border-bottom: none; }
-  .comment-row b { color: var(--accent); margin-right: 6px; }
-  .risk-list { margin: 0; padding-left: 18px; font-size: 13px; line-height: 1.8; color: var(--text); }
-  .ai-opinion {
-    background: linear-gradient(135deg, rgba(255,184,77,0.1), rgba(77,142,255,0.06));
-    border: 1px solid var(--card-border);
-  }
-
-  .sector-card {
-    background: var(--card); border: 1px solid var(--card-border);
-    border-radius: 14px; padding: 14px; margin-bottom: 10px;
-  }
-  .sector-card .sector-head {
-    display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;
-  }
-  .sector-card .sector-name { font-size: 15px; font-weight: 700; }
-  .sector-badges { display: flex; gap: 6px; }
-  .sector-badge { font-size: 10px; padding: 2px 8px; border-radius: 10px; }
-  .sector-badge.momentum { background: rgba(61,220,132,0.12); color: var(--green); }
-  .sector-badge.risk { background: rgba(255,92,92,0.12); color: var(--up); }
-  .sector-card .sector-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; margin-bottom: 8px; }
-  .sector-tickers { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
-  .sector-tickers span {
-    font-size: 12px; background: rgba(77,142,255,0.12); color: var(--down);
-    padding: 3px 8px; border-radius: 8px; font-weight: 600;
-  }
-  .sector-notes { border-top: 1px solid var(--card-border); padding-top: 8px; }
-  .sector-note-row { font-size: 12px; line-height: 1.5; padding: 3px 0; color: var(--text); }
-  .sector-note-row b { color: var(--down); margin-right: 6px; }
-
-  .theme-row {
-    padding: 10px 0; border-bottom: 1px solid var(--card-border);
-  }
-  .theme-row:last-child { border-bottom: none; }
-  .theme-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-  .theme-name { font-size: 13px; font-weight: 700; }
-  .theme-sentiment {
-    font-size: 10px; padding: 2px 8px; border-radius: 10px; font-weight: 700;
-  }
-  .theme-sentiment.강세 { background: rgba(255,92,92,0.15); color: var(--up); }
-  .theme-sentiment.약세 { background: rgba(77,142,255,0.15); color: var(--down); }
-  .theme-sentiment.중립 { background: rgba(255,255,255,0.08); color: var(--text-dim); }
-  .theme-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
-
-  footer {
-    padding: 18px 16px 4px; font-size: 11px; color: var(--text-dim);
-    line-height: 1.6; border-top: 1px solid var(--card-border); margin-top: 20px;
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>🇺🇸 US Stock Picks</h1>
-  <div class="meta">미국 주식 단타 / 장투 추천 · 매일 업데이트</div>
-  <div class="market-status" id="marketStatus">
-    <span class="dot" id="marketDot"></span>
-    <span id="marketText">장 상태 확인 중...</span>
-  </div>
-</header>
-
-<div class="briefing" id="briefingBlock">
-  <div class="briefing-title">📋 오늘의 1분 브리핑</div>
-  <div class="briefing-grid" id="briefingGrid"><div class="loading">불러오는 중...</div></div>
-  <div class="briefing-note" id="briefingNote"></div>
-</div>
-
-<nav id="tabNav">
-  <button data-tab="daytrade" class="active">단타 추천</button>
-  <button data-tab="longterm">장투 추천</button>
-  <button data-tab="sector">섹터 분석</button>
-  <button data-tab="report">시황 리포트</button>
-</nav>
-
-<div class="filter-row" id="filterRowDaytrade"></div>
-
-<main>
-  <section class="tab-panel active" id="tab-daytrade">
-    <div class="updated-badge" id="updated-daytrade">로딩 중...</div>
-    <div id="list-daytrade"><div class="loading">불러오는 중...</div></div>
-  </section>
-
-  <section class="tab-panel" id="tab-longterm">
-    <div class="updated-badge" id="updated-longterm">로딩 중...</div>
-    <div id="list-longterm"><div class="loading">불러오는 중...</div></div>
-  </section>
-
-  <section class="tab-panel" id="tab-sector">
-    <div class="updated-badge" id="updated-sector">로딩 중...</div>
-    <div id="list-sector"><div class="loading">불러오는 중...</div></div>
-  </section>
-
-  <section class="tab-panel" id="tab-report">
-    <div class="updated-badge" id="updated-report">로딩 중...</div>
-    <div id="list-report"><div class="loading">불러오는 중...</div></div>
-  </section>
-</main>
-
-<footer>
-  ※ 진입가/목표가/손절가, 추천점수, 예상수익률은 최근 가격대와 공개된 정보를 참고한 기술적 구간이며, 확정된 매매 추천이 아닙니다. 투자 결정과 책임은 본인에게 있습니다.
-</footer>
-
-<script>
-const PROXY_BASE = "https://us-stock-proxy.chltoal2.workers.dev";
-const DATA_URL = "./data.json";
-let currentDaytradeFilter = "전체";
-let cachedData = null;
-
-document.querySelectorAll("#tabNav button").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll("#tabNav button").forEach(b => b.classList.remove("active"));
-    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-    btn.classList.add("active");
-    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
-  });
-});
-
-function updateMarketStatus() {
-  const now = new Date();
-  const nyTimeStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
-  const ny = new Date(nyTimeStr);
-  const day = ny.getDay();
-  const totalMin = ny.getHours() * 60 + ny.getMinutes();
-  const openMin = 9 * 60 + 30;
-  const closeMin = 16 * 60;
-  const dot = document.getElementById("marketDot");
-  const text = document.getElementById("marketText");
-  const isOpen = day >= 1 && day <= 5 && totalMin >= openMin && totalMin < closeMin;
-  const nyTimeLabel = ny.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
-  if (isOpen) {
-    dot.className = "dot open";
-    text.textContent = `장 운영 중 (미동부 ${nyTimeLabel})`;
-  } else {
-    dot.className = "dot closed";
-    text.textContent = `장 마감 (미동부 ${nyTimeLabel})`;
+  "report": {
+    "globalMacro": [
+      { "label": "FOMC 결과", "value": "6/17 금리 동결 (3.50~3.75%), 다음 회의 7/28~29" },
+      { "label": "10년물 美국채금리", "value": "4.4%대 (고금리 지속)" },
+      { "label": "VIX", "value": "18선 (전일 -6%대 진정)" },
+      { "label": "S&P500 / 나스닥", "value": "전일 반도체 약세에도 지수 전반은 견조" }
+    ],
+    "sectorFlow": [
+      { "label": "주도 섹터", "value": "산업재(+1.18%), 유틸리티(+1.05%) 주도, 기술(-0.64%)은 약세 마감" },
+      { "label": "급등 종목 (시간외)", "value": "마이크론 +15%, 퀄컴 +14%" },
+      { "label": "이번 주 이벤트", "value": "5월 PCE 물가지수, TSMC ITC 예비판결" }
+    ],
+    "themes": [
+      {
+        "name": "메모리/HBM 어닝서프라이즈",
+        "sentiment": "강세",
+        "description": "마이크론이 6/24 장마감 후 매출 가이던스를 시장 기대치(437억달러)보다 훨씬 높은 500억달러로 제시하며 시간외 15% 급등. HBM 수요가 예상을 뛰어넘는 강세를 보이고 있다는 신호로, AI 인프라 투자 사이클에 대한 신뢰를 다시 끌어올리는 계기가 될 가능성이 큽니다."
+      },
+      {
+        "name": "반도체 섹터 로테이션",
+        "sentiment": "강세",
+        "description": "전일까지 약세였던 반도체 섹터가 마이크론 실적을 계기로 분위기 반전 조짐을 보이고 있습니다. 퀄컴도 비휴대폰 매출 가이던스 상향으로 14% 급등하며 메모리 외 반도체 영역까지 긍정적 흐름이 확산되는 모습입니다."
+      },
+      {
+        "name": "산업재/유틸리티 강세",
+        "sentiment": "중립",
+        "description": "전일 정규장에서는 기술주 매도와 함께 산업재, 유틸리티, 헬스케어 등 상대적으로 방어적인 섹터로 자금이 이동하는 로테이션이 나타났습니다. 시장 전문가들은 이를 기술주 집중에서 벗어난 건전한 분산 신호로 해석하고 있습니다."
+      },
+      {
+        "name": "TSMC 특허 리스크",
+        "sentiment": "약세",
+        "description": "美 ITC의 TSMC 첨단공정 특허침해 조사 예비판결이 6월 말 예정되어 있어, 반도체 섹터 전반 반등 속에서도 TSM 개별 종목은 상대적으로 제한적인 움직임을 보일 가능성이 있습니다."
+      }
+    ],
+    "summary": "전일(6/24) 뉴욕증시는 6개 섹터가 상승하며 산업재(+1.18%)와 유틸리티(+1.05%)가 주도했고, 기술주는 -0.64%로 약세 마감했습니다. 장마감 후 마이크론이 어닝서프라이즈를 기록하며 시간외 15% 급등, 퀄컴도 14% 급등하며 분위기를 반전시켰습니다. VIX는 18선까지 진정된 상태이며, FOMC는 6/17 회의에서 금리를 동결(3.50~3.75%)하고 마무리되어 다음 회의(7/28~29)까지는 통화정책 불확실성이 소강 상태입니다.",
+    "stockComments": [
+      { "ticker": "MU", "comment": "어닝서프라이즈로 다음날 갭상승 출발 예상. 추격매수보다 눌림목을 노리는 전략 권장." },
+      { "ticker": "NVDA", "comment": "마이크론發 섹터 반등 분위기 속 $200 지지 여부가 핵심 관전 포인트." },
+      { "ticker": "TSM", "comment": "ITC 특허 조사 결과(6월 말)가 단기 최대 변수. 섹터 반등에도 상대적으로 제한적 움직임 가능." },
+      { "ticker": "AVGO", "comment": "AI 가속기 매출 비중이 높아 메모리 강세의 간접 수혜 기대." }
+    ],
+    "risks": [
+      "TSMC ITC 특허 예비판결(6월 말) — 부정적 결과 시 AI 가속기 수입 제한 가능성",
+      "5월 PCE 물가지수 발표 — 인플레이션 서프라이즈 시 금리 기대 재조정 가능",
+      "10년물 금리 4.4%대 유지 — 고금리 장기화 시 성장주 밸류에이션 압박",
+      "다음 FOMC(7/28~29)까지는 통화정책 불확실성 소강, 이후 재부각 가능"
+    ],
+    "outlook": "마이크론의 어닝서프라이즈가 반도체 섹터 전반의 분위기를 단기적으로 반전시킬 가능성이 높습니다. 다만 TSMC의 ITC 특허 판결이라는 개별 변수가 남아있어, 섹터 전체와 개별 종목 간 디커플링이 나타날 수 있습니다. VIX가 18선으로 진정된 만큼 급격한 패닉보다는 종목별 이슈 중심의 변동성이 이어질 것으로 보입니다.",
+    "aiOpinion": "오늘은 마이크론 실적이 반도체 섹터 전체의 분위기를 바꿀 가장 중요한 변수예요. 어제까지 약세였던 반도체가 마이크론發 호재로 급반전될 가능성이 높으니, 갭상승 출발하는 종목들을 추격매수하기보단 눌림목을 기다리는 전략이 안전할 것 같아요. TSM은 ITC 특허 이슈가 남아있어 섹터 전체 분위기와는 별개로 움직일 수 있다는 점도 참고하시면 좋겠어요. FOMC는 7/28~29까지 쉬어가는 구간이니, 그 사이엔 종목별·섹터별 이슈 대응에 집중하시는 게 좋아 보여요."
   }
 }
-updateMarketStatus();
-setInterval(updateMarketStatus, 60 * 1000);
-
-async function fetchQuote(ticker) {
-  try {
-    const res = await fetch(`${PROXY_BASE}/quote?symbol=${ticker}`);
-    if (!res.ok) throw new Error("network error");
-    return await res.json();
-  } catch (e) {
-    return null;
-  }
-}
-
-function renderBriefing(b) {
-  const grid = document.getElementById("briefingGrid");
-  const note = document.getElementById("briefingNote");
-  if (!b) { grid.innerHTML = `<div class="empty">브리핑 데이터가 없습니다.</div>`; return; }
-  const items = [
-    { label: "VIX (공포지수)", value: b.vix },
-    { label: "선물 방향", value: b.futures },
-    { label: "오늘 핫섹터", value: b.hotSector },
-    { label: "경제지표/이벤트", value: b.event }
-  ];
-  grid.innerHTML = items.map(i => `
-    <div class="briefing-item"><div class="label">${i.label}</div><div class="value">${i.value || "-"}</div></div>
-  `).join("");
-  note.textContent = b.note || "";
-}
-
-function renderStockCard(stock, quote, isLongterm) {
-  const price = quote ? quote.c : null;
-  const change = quote ? quote.dp : null;
-  const isUp = change !== null && change >= 0;
-  const priceText = price !== null ? `$${price.toFixed(2)}` : "—";
-  const changeText = change !== null ? `${isUp ? "+" : ""}${change.toFixed(2)}%` : "데이터 없음";
-  const etfBadge = stock.isEtf ? `<span class="etf-badge">ETF</span>` : "";
-  const scoreBadge = stock.score ? `<span class="score-badge">★${stock.score}점</span>` : "";
-
-  let levelsBlock = "";
-  if (isLongterm) {
-    levelsBlock = `
-      <div class="longterm-meta">
-        <div class="meta-box"><div class="meta-label">투자기간</div><div class="meta-value">${stock.horizon || "-"}</div></div>
-        <div class="meta-box"><div class="meta-label">예상수익</div><div class="meta-value green">${stock.expectedReturn || "-"}</div></div>
-        <div class="meta-box"><div class="meta-label">추천점수</div><div class="meta-value">${stock.score || "-"}점</div></div>
-      </div>
-      ${stock.point ? `<div class="point-box"><b>장투 포인트</b> ${stock.point}</div>` : ""}
-    `;
-  } else if (stock.entry || stock.target || stock.stop) {
-    levelsBlock = `
-      <div class="trade-levels">
-        <div class="level-box entry"><div class="level-label">진입가</div><div class="level-value">${stock.entry || "-"}</div></div>
-        <div class="level-box target"><div class="level-label">목표가</div><div class="level-value">${stock.target || "-"}</div></div>
-        <div class="level-box stop"><div class="level-label">손절가</div><div class="level-value">${stock.stop || "-"}</div></div>
-      </div>
-    `;
-  }
-
-  return `
-    <div class="stock-card" data-category="${stock.category || ""}">
-      <div class="stock-row">
-        <div class="stock-left">
-          <div class="ticker">${stock.ticker}${etfBadge}${!isLongterm ? scoreBadge : ""}</div>
-          <div class="name">${stock.name || ""}</div>
-        </div>
-        <div class="stock-right">
-          <div class="price">${priceText}</div>
-          <div class="change ${isUp ? "up" : "down"}">${changeText}</div>
-        </div>
-      </div>
-      ${stock.reason ? `<div class="reason">${stock.reason}</div>` : ""}
-      ${levelsBlock}
-      ${stock.tags && stock.tags.length ? `<div class="tag-row">${stock.tags.map(t => `<span class="tag">#${t}</span>`).join("")}</div>` : ""}
-    </div>
-  `;
-}
-
-async function renderStockList(containerId, stocks, isLongterm) {
-  const container = document.getElementById(containerId);
-  if (!stocks || stocks.length === 0) {
-    container.innerHTML = `<div class="empty">등록된 종목이 없습니다.</div>`;
-    return;
-  }
-  container.innerHTML = stocks.map(s => renderStockCard(s, null, isLongterm)).join("");
-  for (let i = 0; i < stocks.length; i++) {
-    const stock = stocks[i];
-    const quote = await fetchQuote(stock.ticker);
-    const cards = container.querySelectorAll(".stock-card");
-    if (cards[i] && quote) cards[i].outerHTML = renderStockCard(stock, quote, isLongterm);
-    await new Promise(r => setTimeout(r, 150));
-  }
-}
-
-function renderDaytradeFilters(stocks) {
-  const row = document.getElementById("filterRowDaytrade");
-  const categories = ["전체", ...new Set(stocks.map(s => s.category).filter(Boolean))];
-  row.innerHTML = categories.map(c =>
-    `<div class="filter-chip ${c === currentDaytradeFilter ? "active" : ""}" data-cat="${c}">${c}</div>`
-  ).join("");
-  row.querySelectorAll(".filter-chip").forEach(chip => {
-    chip.addEventListener("click", () => {
-      currentDaytradeFilter = chip.dataset.cat;
-      row.querySelectorAll(".filter-chip").forEach(c => c.classList.remove("active"));
-      chip.classList.add("active");
-      const filtered = currentDaytradeFilter === "전체"
-        ? cachedData.daytrade
-        : cachedData.daytrade.filter(s => s.category === currentDaytradeFilter);
-      renderStockList("list-daytrade", filtered, false);
-    });
-  });
-}
-
-function renderSectorList(containerId, sectors) {
-  const container = document.getElementById(containerId);
-  if (!sectors || sectors.length === 0) {
-    container.innerHTML = `<div class="empty">등록된 섹터 분석이 없습니다.</div>`;
-    return;
-  }
-  container.innerHTML = sectors.map(s => `
-    <div class="sector-card">
-      <div class="sector-head">
-        <div class="sector-name">${s.name}</div>
-        <div class="sector-badges">
-          ${s.momentum ? `<span class="sector-badge momentum">${s.momentum}</span>` : ""}
-          ${s.risk ? `<span class="sector-badge risk">리스크 ${s.risk}</span>` : ""}
-        </div>
-      </div>
-      <div class="sector-desc">${s.description}</div>
-      <div class="sector-tickers">${(s.tickers || []).map(t => `<span>${t}</span>`).join("")}</div>
-      ${s.stockNotes && s.stockNotes.length ? `
-        <div class="sector-notes">
-          ${s.stockNotes.map(n => `<div class="sector-note-row"><b>${n.ticker}</b>${n.note}</div>`).join("")}
-        </div>
-      ` : ""}
-    </div>
-  `).join("");
-}
-
-function renderReport(containerId, r) {
-  const container = document.getElementById(containerId);
-  if (!r) { container.innerHTML = `<div class="empty">등록된 시황 리포트가 없습니다.</div>`; return; }
-
-  const macroGrid = (r.globalMacro || []).map(i => `
-    <div class="ritem"><div class="rlabel">${i.label}</div><div class="rvalue">${i.value}</div></div>
-  `).join("");
-
-  const flowGrid = (r.sectorFlow || []).map(i => `
-    <div class="ritem"><div class="rlabel">${i.label}</div><div class="rvalue">${i.value}</div></div>
-  `).join("");
-
-  const themes = (r.themes || []).map(t => `
-    <div class="theme-row">
-      <div class="theme-head">
-        <div class="theme-name">${t.name}</div>
-        <span class="theme-sentiment ${t.sentiment}">${t.sentiment}</span>
-      </div>
-      <div class="theme-desc">${t.description}</div>
-    </div>
-  `).join("");
-
-  const comments = (r.stockComments || []).map(c => `
-    <div class="comment-row"><b>${c.ticker}</b>${c.comment}</div>
-  `).join("");
-
-  const risks = (r.risks || []).map(x => `<li>${x}</li>`).join("");
-
-  container.innerHTML = `
-    <div class="report-block">
-      <h3>🌐 글로벌 매크로</h3>
-      <div class="report-grid">${macroGrid}</div>
-    </div>
-    <div class="report-block">
-      <h3>📊 섹터 흐름</h3>
-      <div class="report-grid">${flowGrid}</div>
-    </div>
-    <div class="report-block">
-      <h3>🔥 오늘의 주도 테마</h3>
-      ${themes}
-    </div>
-    <div class="report-block">
-      <h3>오늘의 시황</h3>
-      <p>${r.summary || ""}</p>
-    </div>
-    <div class="report-block">
-      <h3>🎯 종목별 코멘트</h3>
-      ${comments}
-    </div>
-    <div class="report-block">
-      <h3>⚠️ 리스크 요인</h3>
-      <ul class="risk-list">${risks}</ul>
-    </div>
-    <div class="report-block">
-      <h3>💡 전망</h3>
-      <p>${r.outlook || ""}</p>
-    </div>
-    <div class="report-block ai-opinion">
-      <h3>🤖 AI 종합 의견</h3>
-      <p>${r.aiOpinion || ""}</p>
-    </div>
-  `;
-}
-
-async function loadData() {
-  try {
-    const res = await fetch(DATA_URL + "?t=" + Date.now());
-    const data = await res.json();
-    cachedData = data;
-
-    ["daytrade", "longterm", "sector", "report"].forEach(id => {
-      document.getElementById("updated-" + id).textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
-    });
-
-    renderBriefing(data.briefing);
-    renderDaytradeFilters(data.daytrade || []);
-    renderStockList("list-daytrade", data.daytrade, false);
-    renderStockList("list-longterm", data.longterm, true);
-    renderSectorList("list-sector", data.sectors);
-    renderReport("list-report", data.report);
-  } catch (e) {
-    ["list-daytrade", "list-longterm", "list-sector", "list-report"].forEach(id => {
-      document.getElementById(id).innerHTML = `<div class="empty">데이터 로드 실패. data.json 파일을 확인해주세요.</div>`;
-    });
-  }
-}
-
-loadData();
-</script>
-</body>
-</html>
