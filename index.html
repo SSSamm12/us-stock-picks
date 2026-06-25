@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>US Stock Picks</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --card: #151a23;
+    --card-border: #232a37;
+    --text: #e6e9ef;
+    --text-dim: #8a92a3;
+    --up: #ff5c5c;
+    --down: #4d8eff;
+    --accent: #ffb84d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    padding-bottom: 40px;
+  }
+  header {
+    padding: 18px 16px 12px;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 10;
+    border-bottom: 1px solid var(--card-border);
+  }
+  header h1 {
+    font-size: 18px;
+    margin: 0 0 2px;
+  }
+  header .meta {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .market-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    margin-top: 8px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--text-dim);
+  }
+  .dot.open { background: #3ddc84; }
+  .dot.closed { background: #ff5c5c; }
+
+  nav {
+    display: flex;
+    gap: 4px;
+    padding: 12px 16px 0;
+    overflow-x: auto;
+  }
+  nav button {
+    flex: 1;
+    background: transparent;
+    color: var(--text-dim);
+    border: none;
+    padding: 10px 8px;
+    font-size: 13px;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  nav button.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  main { padding: 16px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .updated-badge {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .stock-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .stock-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .stock-left .ticker {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .stock-left .name {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+  .stock-right { text-align: right; }
+  .stock-right .price {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .stock-right .change {
+    font-size: 12px;
+    margin-top: 2px;
+  }
+  .change.up { color: var(--up); }
+  .change.down { color: var(--down); }
+
+  .reason {
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+    padding-top: 10px;
+    border-top: 1px solid var(--card-border);
+  }
+  .tag-row {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: rgba(255,184,77,0.12);
+    color: var(--accent);
+  }
+
+  .loading, .empty {
+    text-align: center;
+    color: var(--text-dim);
+    padding: 40px 0;
+    font-size: 13px;
+  }
+
+  .report-block {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .report-block h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+    color: var(--accent);
+  }
+  .report-block p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+    white-space: pre-wrap;
+  }
+
+  .sector-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+  .sector-card .sector-name {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .sector-card .sector-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+  .sector-tickers {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .sector-tickers span {
+    font-size: 12px;
+    background: rgba(77,142,255,0.12);
+    color: var(--down);
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🇺🇸 US Stock Picks</h1>
+  <div class="meta">미국 주식 단타 / 장투 추천 · 매일 업데이트</div>
+  <div class="market-status" id="marketStatus">
+    <span class="dot" id="marketDot"></span>
+    <span id="marketText">장 상태 확인 중...</span>
+  </div>
+</header>
+
+<nav id="tabNav">
+  <button data-tab="daytrade" class="active">단타 추천</button>
+  <button data-tab="longterm">장투 추천</button>
+  <button data-tab="sector">섹터 분석</button>
+  <button data-tab="report">시황 리포트</button>
+</nav>
+
+<main>
+  <section class="tab-panel active" id="tab-daytrade">
+    <div class="updated-badge" id="updated-daytrade">로딩 중...</div>
+    <div id="list-daytrade"><div class="loading">불러오는 중...</div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-longterm">
+    <div class="updated-badge" id="updated-longterm">로딩 중...</div>
+    <div id="list-longterm"><div class="loading">불러오는 중...</div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-sector">
+    <div class="updated-badge" id="updated-sector">로딩 중...</div>
+    <div id="list-sector"><div class="loading">불러오는 중...</div></div>
+  </section>
+
+  <section class="tab-panel" id="tab-report">
+    <div class="updated-badge" id="updated-report">로딩 중...</div>
+    <div id="list-report"><div class="loading">불러오는 중...</div></div>
+  </section>
+</main>
+
+<script>
+const PROXY_BASE = "https://us-stock-proxy.chltoal2.workers.dev";
+const DATA_URL = "./data.json"; // 매일 업데이트되는 추천 데이터 파일
+
+// ---------- 탭 전환 ----------
+document.querySelectorAll("#tabNav button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll("#tabNav button").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById("tab-" + btn.dataset.tab).classList.add("active");
+  });
+});
+
+// ---------- 미국 동부시간 장 상태 표시 ----------
+function updateMarketStatus() {
+  const now = new Date();
+  // 미국 동부시간(America/New_York) 기준으로 변환
+  const nyTimeStr = now.toLocaleString("en-US", { timeZone: "America/New_York" });
+  const ny = new Date(nyTimeStr);
+  const day = ny.getDay(); // 0=일 6=토
+  const hour = ny.getHours();
+  const min = ny.getMinutes();
+  const totalMin = hour * 60 + min;
+
+  const openMin = 9 * 60 + 30;   // 09:30 ET
+  const closeMin = 16 * 60;       // 16:00 ET
+
+  const dot = document.getElementById("marketDot");
+  const text = document.getElementById("marketText");
+
+  const isWeekday = day >= 1 && day <= 5;
+  const isOpen = isWeekday && totalMin >= openMin && totalMin < closeMin;
+
+  const nyTimeLabel = ny.toLocaleTimeString("ko-KR", { hour: "2-digit", minute: "2-digit" });
+
+  if (isOpen) {
+    dot.className = "dot open";
+    text.textContent = `장 운영 중 (미동부 ${nyTimeLabel})`;
+  } else {
+    dot.className = "dot closed";
+    text.textContent = `장 마감 (미동부 ${nyTimeLabel})`;
+  }
+}
+updateMarketStatus();
+setInterval(updateMarketStatus, 60 * 1000);
+
+// ---------- 실시간 가격 가져오기 (Finnhub 프록시) ----------
+async function fetchQuote(ticker) {
+  try {
+    const res = await fetch(`${PROXY_BASE}/quote?symbol=${ticker}`);
+    if (!res.ok) throw new Error("network error");
+    return await res.json();
+  } catch (e) {
+    return null;
+  }
+}
+
+// ---------- 종목 카드 렌더링 ----------
+function renderStockCard(stock, quote) {
+  const price = quote ? quote.c : null;
+  const change = quote ? quote.dp : null;
+  const isUp = change !== null && change >= 0;
+
+  const priceText = price !== null ? `$${price.toFixed(2)}` : "—";
+  const changeText = change !== null ? `${isUp ? "+" : ""}${change.toFixed(2)}%` : "데이터 없음";
+
+  return `
+    <div class="stock-card">
+      <div class="stock-row">
+        <div class="stock-left">
+          <div class="ticker">${stock.ticker}</div>
+          <div class="name">${stock.name || ""}</div>
+        </div>
+        <div class="stock-right">
+          <div class="price">${priceText}</div>
+          <div class="change ${isUp ? "up" : "down"}">${changeText}</div>
+        </div>
+      </div>
+      ${stock.reason ? `<div class="reason">${stock.reason}</div>` : ""}
+      ${stock.tags && stock.tags.length ? `
+        <div class="tag-row">
+          ${stock.tags.map(t => `<span class="tag">#${t}</span>`).join("")}
+        </div>` : ""}
+    </div>
+  `;
+}
+
+// ---------- 종목 리스트(단타/장투) 렌더 ----------
+async function renderStockList(containerId, stocks) {
+  const container = document.getElementById(containerId);
+  if (!stocks || stocks.length === 0) {
+    container.innerHTML = `<div class="empty">등록된 종목이 없습니다.</div>`;
+    return;
+  }
+
+  container.innerHTML = stocks.map(s => renderStockCard(s, null)).join("");
+
+  // 가격은 비동기로 하나씩 업데이트 (Finnhub 분당 60회 제한 고려, 약간 간격)
+  for (let i = 0; i < stocks.length; i++) {
+    const stock = stocks[i];
+    const quote = await fetchQuote(stock.ticker);
+    const cards = container.querySelectorAll(".stock-card");
+    if (cards[i] && quote) {
+      const updated = renderStockCard(stock, quote);
+      cards[i].outerHTML = updated;
+    }
+    await new Promise(r => setTimeout(r, 150)); // 과도한 동시 호출 방지
+  }
+}
+
+// ---------- 섹터 분석 렌더 ----------
+function renderSectorList(containerId, sectors) {
+  const container = document.getElementById(containerId);
+  if (!sectors || sectors.length === 0) {
+    container.innerHTML = `<div class="empty">등록된 섹터 분석이 없습니다.</div>`;
+    return;
+  }
+  container.innerHTML = sectors.map(s => `
+    <div class="sector-card">
+      <div class="sector-name">${s.name}</div>
+      <div class="sector-desc">${s.description}</div>
+      <div class="sector-tickers">
+        ${(s.tickers || []).map(t => `<span>${t}</span>`).join("")}
+      </div>
+    </div>
+  `).join("");
+}
+
+// ---------- 시황 리포트 렌더 ----------
+function renderReport(containerId, report) {
+  const container = document.getElementById(containerId);
+  if (!report) {
+    container.innerHTML = `<div class="empty">등록된 시황 리포트가 없습니다.</div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div class="report-block">
+      <h3>오늘의 시황</h3>
+      <p>${report.summary || ""}</p>
+    </div>
+    ${report.highlights ? `
+    <div class="report-block">
+      <h3>주요 이슈</h3>
+      <p>${report.highlights}</p>
+    </div>` : ""}
+  `;
+}
+
+// ---------- 데이터 로드 ----------
+async function loadData() {
+  try {
+    const res = await fetch(DATA_URL + "?t=" + Date.now()); // 캐시 방지
+    const data = await res.json();
+
+    document.getElementById("updated-daytrade").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+    document.getElementById("updated-longterm").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+    document.getElementById("updated-sector").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+    document.getElementById("updated-report").textContent = `마지막 업데이트: ${data.updatedAt || "-"}`;
+
+    renderStockList("list-daytrade", data.daytrade);
+    renderStockList("list-longterm", data.longterm);
+    renderSectorList("list-sector", data.sectors);
+    renderReport("list-report", data.report);
+  } catch (e) {
+    ["list-daytrade", "list-longterm", "list-sector", "list-report"].forEach(id => {
+      document.getElementById(id).innerHTML = `<div class="empty">데이터 로드 실패. data.json 파일을 확인해주세요.</div>`;
+    });
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>
